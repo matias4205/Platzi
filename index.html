@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simon Dice</title>
+    <style>
+
+      *{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      h1{
+        font-size: 40px;
+        color: white;
+      }
+
+      body {
+        margin: 0;
+        background-image: url('skyBackground.png');        
+      }
+      .gameboard {
+        height: 100vh;
+        width: 100vh;
+        border-radius: 50%;
+        overflow: hidden; 
+        margin-top: calc(50vh - 50%);
+        max-height: 60vh;
+        max-width: 60vh;
+        border: black solid 15px;
+        box-shadow: 0px 0px 40px 10px black;
+        
+      }
+      .color {
+        width: 50%;
+        height: 50%;
+        box-sizing: border-box;
+        float: left;
+      }
+      .left {
+        border-right: 5px solid black;
+      }
+      .left.top{
+        box-shadow: rgba(0, 0, 0, 0.315) -5px -5px 10px 5px inset;
+      }
+      .left.bottom{
+        box-shadow: rgba(0, 0, 0, 0.315) -5px 5px 10px 5px inset;
+      }
+      .right {
+        border-left: 5px solid black;
+      }
+      .right.top{
+        box-shadow: rgba(0, 0, 0, 0.315) 5px -5px 10px 5px inset;
+      }
+      .right.bottom{
+        box-shadow: rgba(0, 0, 0, 0.315) 5px 5px 10px 5px inset;
+      }
+      .top{
+        border-bottom: 5px solid black;
+      }
+      .bottom{
+        border-top: 5px solid black;
+      }
+      .lightblue {
+        background: #22a6b3;
+      }
+      .lightblue.light {
+        background: #7ed6df !important;
+      }
+      .violet {
+        background: #be2edd;
+      }
+      .violet.light {
+        background: #e056fd !important;
+      }
+      .orange {
+        background: #f0932b;
+      }
+      .orange.light {
+        background: #ffbe76 !important;
+      }
+      .green {
+        background: #6ab04c;
+      }
+      .green.light {
+        background: #badc58 !important;
+      }
+      .center{
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: black solid 10px;
+        background: rgb(49, 49, 49);
+        position: absolute;
+        height: 160px;
+        width: 160px;
+        top: calc(50% - 80px);
+        left: calc(50% - 80px);
+        box-shadow: rgba(0, 0, 0, 0.315) 0px 0px 10px 10px, rgba(0, 0, 0, 0.315) 0px 0px 20px 20px inset;
+      }
+      .btn-start {
+        height: 100px;
+        width: 400px;
+        background: rgb(50, 173, 19);
+        color: #ffffff;
+        font-size: 2.5rem;
+        font-weight: bold;
+        border: 3px solid #298b10;
+        border-radius: 20px;
+        position: absolute;
+        top: calc(50% - 50px);
+        left: calc(50% - 200px);
+      }
+      .hide {
+        display: none;
+      }
+      .overlay{
+        background: rgba(0,0,0,.5);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        animation: .5s darkOut;
+      }
+      .puntaje{
+        border-radius: 2em 0 2em 0;
+        margin: 90px;
+        text-align: center;
+        position: absolute;
+        background: #213845;
+        height: 100px;
+        width: 500px;
+        box-shadow: 5px 5px 50px 5px black;
+      }
+      .nivel{
+        color: #89c739;
+      }
+      .simon{
+        margin: 0 auto;
+        position: relative;
+      }
+      .game-container{
+        display: flex;
+        height: 100vh;
+      }
+      .game-container.notPlaying{
+        filter: blur(20px);
+      }
+
+      .game-container.unBlur{
+        animation: 500ms unBlur;
+      }
+      
+      @keyframes unBlur{
+        0% {
+          filter: blur(20px);
+        }
+
+        100% {
+          filter: blur(0px);
+        }
+      }
+      
+      
+    </style>
+  </head>
+  <body>
+    
+
+    <section id="game-container" class="game-container notPlaying">
+        <div id="puntaje" class="puntaje">
+          <h1>Nivel: <span id="level" class="nivel">0</span></h1>
+        </div>
+        <div class="simon">
+            <div id="gameBoard" class="gameboard">
+                <div id="center" class="center light"></div>
+                <div id="lightblue" class="color lightblue left top" data-color="lightblue"></div>
+                <div id="violet" class="color violet right top" data-color="violet"></div>
+                <div id="orange" class="color orange left bottom" data-color="orange"></div>
+                <div id="green" class="color green right bottom" data-color="green"></div>
+              </div>
+        </div>
+        <div id="overlay" class="overlay"></div>
+    </section>
+
+    <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
